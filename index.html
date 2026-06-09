@@ -572,7 +572,252 @@
       transform: translateY(0);
     }
 
-    /* ── RESPONSIVE ── */
+    /* ── PODCAST STUDIO ── */
+    #studio {
+      background: var(--ink);
+      border-top: 1px solid var(--border);
+      overflow: hidden;
+      position: relative;
+    }
+    #studio::before {
+      content: '';
+      position: absolute;
+      top: -120px; right: -120px;
+      width: 600px; height: 600px;
+      background: radial-gradient(circle, rgba(200,169,110,0.08) 0%, transparent 65%);
+      pointer-events: none;
+    }
+    .studio-inner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: center;
+      position: relative;
+      z-index: 1;
+    }
+    .studio-left {}
+    .studio-features {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      margin: 32px 0 40px;
+    }
+    .studio-feature {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      padding: 16px 18px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      transition: border-color 0.2s;
+    }
+    .studio-feature:hover { border-color: var(--accent-border); }
+    .studio-feature-icon {
+      font-size: 1.4rem;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+    .studio-feature h4 {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.9rem;
+      font-weight: 700;
+      color: #FFFFFF;
+      margin-bottom: 3px;
+    }
+    .studio-feature p {
+      font-size: 0.82rem;
+      color: #9090A8;
+      line-height: 1.5;
+    }
+    .studio-cta-row {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+    .studio-cta-note {
+      font-size: 12px;
+      color: #9090A8;
+    }
+    .studio-cta-note span {
+      color: var(--accent);
+    }
+
+    /* STUDIO RIGHT VISUAL */
+    .studio-visual {
+      position: relative;
+    }
+    .studio-mockup {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      overflow: hidden;
+      position: relative;
+    }
+    .studio-mockup-header {
+      background: var(--mid);
+      border-bottom: 1px solid var(--border);
+      padding: 12px 18px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .mock-dot {
+      width: 10px; height: 10px;
+      border-radius: 50%;
+    }
+    .mock-dot.r { background: #E74C3C; }
+    .mock-dot.y { background: #F39C12; }
+    .mock-dot.g { background: #2ECC71; }
+    .mock-url {
+      flex: 1;
+      background: var(--ink);
+      border-radius: 6px;
+      padding: 5px 12px;
+      font-size: 11px;
+      color: #9090A8;
+      margin-left: 8px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .mock-url span { color: var(--accent); }
+    .studio-mockup-body {
+      padding: 28px 24px;
+    }
+    .mock-cal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 16px;
+    }
+    .mock-cal-title {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.88rem;
+      font-weight: 700;
+      color: #FFFFFF;
+    }
+    .mock-cal-nav {
+      display: flex;
+      gap: 6px;
+    }
+    .mock-cal-btn {
+      width: 24px; height: 24px;
+      background: var(--mid);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      color: #9090A8;
+    }
+    .mock-days {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 4px;
+      margin-bottom: 16px;
+    }
+    .mock-day-label {
+      text-align: center;
+      font-size: 9px;
+      color: #6A6A80;
+      padding: 2px 0;
+      font-weight: 600;
+    }
+    .mock-day {
+      aspect-ratio: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 11px;
+      border-radius: 5px;
+      color: #9090A8;
+    }
+    .mock-day.past { opacity: 0.25; }
+    .mock-day.active { background: var(--accent); color: var(--ink); font-weight: 700; }
+    .mock-day.booked { position: relative; color: #FFFFFF; }
+    .mock-day.booked::after { content: ''; position: absolute; bottom: 2px; left: 50%; transform: translateX(-50%); width: 3px; height: 3px; border-radius: 50%; background: var(--warning, #F39C12); }
+    .mock-slots {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 6px;
+    }
+    .mock-slot {
+      background: var(--mid);
+      border: 1px solid var(--border);
+      border-radius: 7px;
+      padding: 8px 6px;
+      text-align: center;
+    }
+    .mock-slot.sel { border-color: var(--accent); background: rgba(200,169,110,0.12); }
+    .mock-slot.taken { opacity: 0.4; background: rgba(243,156,18,0.08); border-color: rgba(243,156,18,0.2); }
+    .mock-slot-time { font-size: 10px; font-weight: 700; color: #FFFFFF; margin-bottom: 2px; font-family: 'Montserrat', sans-serif; }
+    .mock-slot.taken .mock-slot-time { color: #F39C12; }
+    .mock-slot-badge { font-size: 8px; color: #9090A8; }
+    .mock-slot.taken .mock-slot-badge { color: #F39C12; font-weight: 600; }
+    .mock-slot.sel .mock-slot-badge { color: var(--accent); }
+    .studio-badge {
+      position: absolute;
+      top: -16px; right: -16px;
+      background: var(--accent);
+      color: var(--ink);
+      font-family: 'Montserrat', sans-serif;
+      font-size: 11px;
+      font-weight: 800;
+      padding: 8px 14px;
+      border-radius: 8px;
+      letter-spacing: 0.04em;
+      box-shadow: 0 4px 20px rgba(200,169,110,0.3);
+    }
+    .studio-slots-label {
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: #6A6A80;
+      margin-bottom: 8px;
+    }
+
+    /* ── PRICING PILLS ── */
+    .pricing-pills {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-top: 24px;
+    }
+    .pricing-pill {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 10px 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      transition: border-color 0.2s;
+    }
+    .pricing-pill:hover { border-color: var(--accent-border); }
+    .pricing-pill .pill-type {
+      font-size: 11px;
+      color: #9090A8;
+      font-weight: 500;
+    }
+    .pricing-pill .pill-price {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--accent);
+    }
+    .pricing-pill .pill-dur {
+      font-size: 10px;
+      color: #6A6A80;
+    }
+
+    @media (max-width: 900px) {
+      .studio-inner { grid-template-columns: 1fr; gap: 48px; }
+      .studio-visual { display: none; }
+    }
     @media (max-width: 1024px) {
       nav { padding: 18px 32px; }
       .nav-links { gap: 20px; }
@@ -608,6 +853,7 @@
       <li><a href="#services">Services</a></li>
       <li><a href="#content">Content</a></li>
       <li><a href="#why">Why Us</a></li>
+      <li><a href="#studio">Podcast Studio</a></li>
       <li><a href="#contact" class="nav-cta">Get in Touch</a></li>
     </ul>
   </nav>
@@ -826,6 +1072,114 @@
       <span class="sector-tag">Public Figures & Influencers</span>
       <span class="sector-tag">Government & Semi-Government</span>
       <span class="sector-tag">Corporate Organizations</span>
+    </div>
+  </section>
+
+  <!-- PODCAST STUDIO -->
+  <section id="studio">
+    <div class="studio-inner">
+
+      <!-- LEFT: COPY -->
+      <div class="studio-left reveal">
+        <p class="section-eyebrow">STARVIX Podcast Studio</p>
+        <h2 class="section-title">Pakistan's premier<br><span style="color:var(--accent)">podcast rental space.</span></h2>
+        <p class="section-body">
+          A professional, acoustically treated podcast studio in the heart of Lahore — available for hourly, half-day, and full-day rental. Whether you're launching a show, recording an interview, or producing branded audio content, STARVIX Studio gives you broadcast-grade quality without the broadcast-grade cost.
+        </p>
+
+        <div class="studio-features">
+          <div class="studio-feature">
+            <div class="studio-feature-icon">🎙️</div>
+            <div>
+              <h4>Professional Equipment</h4>
+              <p>Studio-grade microphones, mixers, soundproofing, and lighting — everything set up and ready to record.</p>
+            </div>
+          </div>
+          <div class="studio-feature">
+            <div class="studio-feature-icon">📅</div>
+            <div>
+              <h4>Flexible Booking Slots</h4>
+              <p>Book by the hour (9 AM – 10 PM), half-day (4 hrs), or full-day (8 hrs) with your choice of start time.</p>
+            </div>
+          </div>
+          <div class="studio-feature">
+            <div class="studio-feature-icon">🎬</div>
+            <div>
+              <h4>Video-Ready Setup</h4>
+              <p>Camera-ready environment for video podcasts, interviews, and branded content shoots.</p>
+            </div>
+          </div>
+          <div class="studio-feature">
+            <div class="studio-feature-icon">📍</div>
+            <div>
+              <h4>Conveniently Located</h4>
+              <p>Etihad Town Phase 1, Off Raiwind Road, Lahore — easily accessible from across the city.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="pricing-pills">
+          <div class="pricing-pill">
+            <span class="pill-type">Hourly</span>
+            <span class="pill-price">Request Price</span>
+            <span class="pill-dur">per hour</span>
+          </div>
+          <div class="pricing-pill">
+            <span class="pill-type">Half Day</span>
+            <span class="pill-price">Request Price</span>
+            <span class="pill-dur">4 hours, flexible start</span>
+          </div>
+          <div class="pricing-pill">
+            <span class="pill-type">Full Day</span>
+            <span class="pill-price">Request Price</span>
+            <span class="pill-dur">8 hours, flexible start</span>
+          </div>
+        </div>
+
+        <div class="studio-cta-row" style="margin-top:36px">
+          <a href="https://booking.starvix.pk" target="_blank" class="btn-primary">Book a Session →</a>
+          <p class="studio-cta-note">Live availability at <span>booking.starvix.pk</span></p>
+        </div>
+      </div>
+
+      <!-- RIGHT: VISUAL MOCKUP -->
+      <div class="studio-visual reveal">
+        <div class="studio-badge">BOOK NOW</div>
+        <div class="studio-mockup">
+          <div class="studio-mockup-header">
+            <div class="mock-dot r"></div>
+            <div class="mock-dot y"></div>
+            <div class="mock-dot g"></div>
+            <div class="mock-url">🔒 <span>booking.starvix.pk</span></div>
+          </div>
+          <div class="studio-mockup-body">
+            <div class="mock-cal-header">
+              <span class="mock-cal-title">June 2025</span>
+              <div class="mock-cal-nav">
+                <div class="mock-cal-btn">‹</div>
+                <div class="mock-cal-btn">›</div>
+              </div>
+            </div>
+            <div class="mock-days">
+              <div class="mock-day-label">Su</div><div class="mock-day-label">Mo</div><div class="mock-day-label">Tu</div><div class="mock-day-label">We</div><div class="mock-day-label">Th</div><div class="mock-day-label">Fr</div><div class="mock-day-label">Sa</div>
+              <div class="mock-day past">1</div><div class="mock-day past">2</div><div class="mock-day past">3</div><div class="mock-day past">4</div><div class="mock-day past">5</div><div class="mock-day past">6</div><div class="mock-day past">7</div>
+              <div class="mock-day past">8</div><div class="mock-day past">9</div><div class="mock-day past">10</div><div class="mock-day past">11</div><div class="mock-day past">12</div><div class="mock-day past">13</div><div class="mock-day past">14</div>
+              <div class="mock-day booked">15</div><div class="mock-day booked">16</div><div class="mock-day">17</div><div class="mock-day active">18</div><div class="mock-day">19</div><div class="mock-day">20</div><div class="mock-day">21</div>
+              <div class="mock-day">22</div><div class="mock-day">23</div><div class="mock-day">24</div><div class="mock-day">25</div><div class="mock-day">26</div><div class="mock-day">27</div><div class="mock-day">28</div>
+            </div>
+            <div class="studio-slots-label">Available slots — Jun 18</div>
+            <div class="mock-slots">
+              <div class="mock-slot taken"><div class="mock-slot-time">9:00 AM</div><div class="mock-slot-badge">Reserved</div></div>
+              <div class="mock-slot taken"><div class="mock-slot-time">10:00 AM</div><div class="mock-slot-badge">Reserved</div></div>
+              <div class="mock-slot"><div class="mock-slot-time">11:00 AM</div><div class="mock-slot-badge">Rs 3,500</div></div>
+              <div class="mock-slot sel"><div class="mock-slot-time">12:00 PM</div><div class="mock-slot-badge">Selected ✓</div></div>
+              <div class="mock-slot"><div class="mock-slot-time">1:00 PM</div><div class="mock-slot-badge">Rs 3,500</div></div>
+              <div class="mock-slot"><div class="mock-slot-time">2:00 PM</div><div class="mock-slot-badge">Rs 3,500</div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
     </div>
   </section>
 
