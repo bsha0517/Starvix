@@ -1,0 +1,923 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>STARVIX — Where Content Meets Impact</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800;900&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --ink: #0A0A0F;
+      --white: #FFFFFF;
+      --mid: #1A1A26;
+      --surface: #12121C;
+      --accent: #C8A96E;
+      --accent-dim: rgba(200, 169, 110, 0.15);
+      --muted: #9090A8;
+      --border: rgba(255,255,255,0.07);
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--ink);
+      color: var(--white);
+      font-family: 'Inter', sans-serif;
+      font-size: 16px;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    h1, h2, h3, h4, h5, h6 {
+      color: var(--white);
+    }
+    p, li, span, a {
+      color: inherit;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 20px 60px;
+      background: rgba(10, 10, 15, 0.85);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      text-decoration: none;
+    }
+    .logo-img {
+      height: 44px;
+      width: auto;
+      mix-blend-mode: screen;
+      filter: brightness(1.1);
+      display: block;
+    }
+    .footer-logo-img {
+      height: 52px;
+    }
+    .nav-links {
+      display: flex;
+      gap: 36px;
+      list-style: none;
+    }
+    .nav-links a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 0.85rem;
+      font-weight: 500;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--white); }
+    .nav-cta {
+      background: var(--accent);
+      color: var(--ink) !important;
+      padding: 9px 22px;
+      border-radius: 4px;
+      font-weight: 600 !important;
+      transition: opacity 0.2s !important;
+    }
+    .nav-cta:hover { opacity: 0.85; color: var(--ink) !important; }
+
+    /* ── HERO ── */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 140px 60px 80px;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: -200px; right: -200px;
+      width: 700px; height: 700px;
+      background: radial-gradient(circle, rgba(200,169,110,0.12) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .hero::after {
+      content: '';
+      position: absolute;
+      bottom: -100px; left: -100px;
+      width: 500px; height: 500px;
+      background: radial-gradient(circle, rgba(100,80,200,0.07) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .hero-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 28px;
+    }
+    .hero-eyebrow::before {
+      content: '';
+      display: block;
+      width: 32px;
+      height: 1px;
+      background: var(--accent);
+    }
+    .hero h1 {
+      font-family: 'Montserrat', sans-serif;
+      font-size: clamp(3rem, 7vw, 6.5rem);
+      font-weight: 800;
+      line-height: 1.0;
+      letter-spacing: -0.02em;
+      max-width: 900px;
+      margin-bottom: 28px;
+    }
+    .hero h1 .line-gold { color: var(--accent); }
+    .hero-sub {
+      font-size: 1.1rem;
+      color: var(--muted);
+      max-width: 520px;
+      line-height: 1.75;
+      margin-bottom: 48px;
+    }
+    .hero-actions {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+    .btn-primary {
+      display: inline-block;
+      background: var(--accent);
+      color: var(--ink);
+      font-weight: 700;
+      font-size: 0.9rem;
+      letter-spacing: 0.04em;
+      padding: 14px 34px;
+      border-radius: 4px;
+      text-decoration: none;
+      transition: opacity 0.2s, transform 0.2s;
+    }
+    .btn-primary:hover { opacity: 0.88; transform: translateY(-1px); }
+    .btn-ghost {
+      display: inline-block;
+      border: 1px solid rgba(255,255,255,0.2);
+      color: var(--white);
+      font-weight: 500;
+      font-size: 0.9rem;
+      padding: 14px 34px;
+      border-radius: 4px;
+      text-decoration: none;
+      transition: border-color 0.2s;
+    }
+    .btn-ghost:hover { border-color: var(--accent); color: var(--accent); }
+
+    /* tagline strip */
+    .tagline-strip {
+      margin-top: 80px;
+      padding-top: 40px;
+      border-top: 1px solid var(--border);
+      display: flex;
+      gap: 48px;
+      flex-wrap: wrap;
+    }
+    .strip-item {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+    .strip-num {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 2rem;
+      font-weight: 800;
+      color: var(--accent);
+    }
+    .strip-label {
+      font-size: 0.8rem;
+      color: var(--muted);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+
+    /* ── SECTIONS ── */
+    section { padding: 100px 60px; background: var(--ink); color: var(--white); }
+    .section-eyebrow {
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 16px;
+    }
+    .section-title {
+      font-family: 'Montserrat', sans-serif;
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 800;
+      line-height: 1.1;
+      margin-bottom: 20px;
+      color: #FFFFFF;
+    }
+    .section-body {
+      color: #9090A8;
+      max-width: 600px;
+      line-height: 1.8;
+    }
+
+    /* ── ABOUT ── */
+    #about {
+      background: var(--surface);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      color: var(--white);
+    }
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: center;
+    }
+    .about-right {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+    }
+    .about-card {
+      background: var(--mid);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 28px 24px;
+      transition: border-color 0.25s;
+    }
+    .about-card:hover { border-color: var(--accent); }
+    .about-card-icon {
+      font-size: 1.6rem;
+      margin-bottom: 12px;
+    }
+    .about-card h4 {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.95rem;
+      font-weight: 700;
+      margin-bottom: 6px;
+      color: #FFFFFF;
+    }
+    .about-card p {
+      font-size: 0.82rem;
+      color: #9090A8;
+      line-height: 1.6;
+    }
+
+    /* ── SERVICES ── */
+    #services { position: relative; }
+    .services-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      margin-bottom: 60px;
+    }
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 2px;
+    }
+    .service-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      padding: 40px 32px;
+      position: relative;
+      overflow: hidden;
+      transition: background 0.3s;
+      cursor: default;
+    }
+    .service-card:hover { background: var(--mid); }
+    .service-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 2px;
+      background: var(--accent);
+      transform: scaleX(0);
+      transition: transform 0.3s;
+      transform-origin: left;
+    }
+    .service-card:hover::before { transform: scaleX(1); }
+    .service-num {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.75rem;
+      color: var(--accent);
+      letter-spacing: 0.12em;
+      margin-bottom: 20px;
+    }
+    .service-card h3 {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 1.1rem;
+      font-weight: 700;
+      margin-bottom: 16px;
+      line-height: 1.3;
+      color: #FFFFFF;
+    }
+    .service-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 7px;
+    }
+    .service-list li {
+      font-size: 0.82rem;
+      color: #9090A8;
+      padding-left: 14px;
+      position: relative;
+    }
+    .service-list li::before {
+      content: '—';
+      position: absolute;
+      left: 0;
+      color: var(--accent);
+      font-size: 0.7rem;
+    }
+
+    /* ── CONTENT CATEGORIES ── */
+    #content {
+      background: var(--surface);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      color: var(--white);
+    }
+    .content-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+      margin-top: 48px;
+    }
+    .content-pill {
+      background: var(--mid);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 20px 20px;
+      font-size: 0.88rem;
+      font-weight: 500;
+      color: var(--white);
+      transition: background 0.2s, border-color 0.2s;
+    }
+    .content-pill:hover {
+      background: var(--accent-dim);
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+    .content-pill .pill-icon {
+      font-size: 1.4rem;
+      display: block;
+      margin-bottom: 10px;
+    }
+
+    /* ── WHY STARVIX ── */
+    #why .why-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 32px;
+      margin-top: 56px;
+    }
+    .why-card {
+      border-left: 2px solid var(--accent);
+      padding: 0 0 0 24px;
+    }
+    .why-card h4 {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 1.05rem;
+      font-weight: 700;
+      margin-bottom: 10px;
+      color: #FFFFFF;
+    }
+    .why-card p {
+      font-size: 0.87rem;
+      color: #9090A8;
+      line-height: 1.7;
+    }
+
+    /* ── SECTORS ── */
+    #sectors {
+      background: var(--surface);
+      border-top: 1px solid var(--border);
+      color: var(--white);
+    }
+    .sectors-wrap {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 44px;
+    }
+    .sector-tag {
+      background: transparent;
+      border: 1px solid rgba(255,255,255,0.2);
+      border-radius: 100px;
+      padding: 8px 20px;
+      font-size: 0.83rem;
+      color: #B0B0C8;
+      transition: all 0.2s;
+    }
+    .sector-tag:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+
+    /* ── FUTURE ── */
+    #future {
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    #future::before {
+      content: '';
+      position: absolute;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      width: 600px; height: 600px;
+      background: radial-gradient(circle, rgba(200,169,110,0.07) 0%, transparent 65%);
+      pointer-events: none;
+    }
+    #future .section-title { max-width: 700px; margin: 0 auto 48px; }
+    .future-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+      max-width: 800px;
+      margin: 0 auto 56px;
+    }
+    .future-item {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 24px 20px;
+      font-size: 0.88rem;
+      color: #B0B0C8;
+      transition: border-color 0.2s, color 0.2s;
+    }
+    .future-item:hover { border-color: var(--accent); color: var(--white); }
+
+    /* ── CONTACT ── */
+    #contact {
+      background: var(--surface);
+      border-top: 1px solid var(--border);
+      color: var(--white);
+    }
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: start;
+    }
+    .contact-detail {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+      margin-top: 40px;
+    }
+    .contact-item {
+      display: flex;
+      gap: 16px;
+      align-items: flex-start;
+    }
+    .contact-icon {
+      width: 40px; height: 40px;
+      background: var(--accent-dim);
+      border: 1px solid rgba(200,169,110,0.2);
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1rem;
+      flex-shrink: 0;
+    }
+    .contact-item-body label {
+      display: block;
+      font-size: 0.72rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: #9090A8;
+      margin-bottom: 3px;
+    }
+    .contact-item-body a, .contact-item-body p {
+      font-size: 0.93rem;
+      color: var(--white);
+      text-decoration: none;
+    }
+    .contact-item-body a:hover { color: var(--accent); }
+
+    .contact-form {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .contact-form input,
+    .contact-form textarea {
+      width: 100%;
+      background: var(--mid);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 14px 18px;
+      color: var(--white);
+      font-family: 'Inter', sans-serif;
+      font-size: 0.88rem;
+      outline: none;
+      transition: border-color 0.2s;
+      resize: none;
+    }
+    .contact-form input::placeholder,
+    .contact-form textarea::placeholder { color: var(--muted); }
+    .contact-form input:focus,
+    .contact-form textarea:focus { border-color: var(--accent); }
+    .contact-form textarea { height: 130px; }
+
+    /* ── FOOTER ── */
+    footer {
+      padding: 40px 60px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-top: 1px solid var(--border);
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+    .footer-logo {
+      display: flex;
+      align-items: center;
+    }
+    .footer-logo span { color: var(--accent); }
+    .footer-copy {
+      font-size: 0.78rem;
+      color: #9090A8;
+    }
+    .footer-tagline {
+      font-size: 0.78rem;
+      color: #9090A8;
+      font-style: italic;
+    }
+
+    /* ── SCROLL ANIMATIONS ── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity 0.65s ease, transform 0.65s ease;
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 1024px) {
+      nav { padding: 18px 32px; }
+      .nav-links { gap: 20px; }
+      section { padding: 80px 32px; }
+      .hero { padding: 120px 32px 60px; }
+      .about-grid, .contact-grid { grid-template-columns: 1fr; gap: 48px; }
+      .services-grid, .content-grid { grid-template-columns: repeat(2, 1fr); }
+      .future-grid { grid-template-columns: repeat(2, 1fr); }
+      .why-grid { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 640px) {
+      nav { padding: 16px 20px; }
+      .nav-links { display: none; }
+      section { padding: 60px 20px; }
+      .hero { padding: 100px 20px 48px; }
+      .services-grid, .content-grid, .future-grid, .why-grid { grid-template-columns: 1fr; }
+      .form-row { grid-template-columns: 1fr; }
+      footer { padding: 28px 20px; flex-direction: column; text-align: center; }
+      .tagline-strip { gap: 24px; }
+      .about-right { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <a href="#" class="nav-logo">
+      <img src="starvix-logo.png" alt="STARVIX" class="logo-img"/>
+    </a>
+    <ul class="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#services">Services</a></li>
+      <li><a href="#content">Content</a></li>
+      <li><a href="#why">Why Us</a></li>
+      <li><a href="#contact" class="nav-cta">Get in Touch</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <p class="hero-eyebrow">Digital Media · Creative Production · Brand Communication</p>
+    <h1>Where Content<br><span class="line-gold">Meets Impact.</span></h1>
+    <p class="hero-sub">
+      STARVIX (Pvt.) Ltd. crafts premium digital content, manages brand presence, and delivers media solutions that move modern audiences — across Pakistan and beyond.
+    </p>
+    <div class="hero-actions">
+      <a href="#services" class="btn-primary">Explore Services</a>
+      <a href="#contact" class="btn-ghost">Talk to Us</a>
+    </div>
+    <div class="tagline-strip">
+      <div class="strip-item">
+        <span class="strip-num">4+</span>
+        <span class="strip-label">Core Service Areas</span>
+      </div>
+      <div class="strip-item">
+        <span class="strip-num">10+</span>
+        <span class="strip-label">Content Categories</span>
+      </div>
+      <div class="strip-item">
+        <span class="strip-num">9+</span>
+        <span class="strip-label">Sectors Served</span>
+      </div>
+      <div class="strip-item">
+        <span class="strip-num">360°</span>
+        <span class="strip-label">Digital Coverage</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section id="about">
+    <div class="about-grid">
+      <div class="about-left reveal">
+        <p class="section-eyebrow">Who We Are</p>
+        <h2 class="section-title">A modern media company built for the digital era.</h2>
+        <p class="section-body">
+          Backed by senior professionals from media, advertising, marketing, and production — STARVIX combines strategic communication with cinematic storytelling, digital innovation, and audience-focused content creation.
+        </p>
+        <br/>
+        <p class="section-body">
+          We believe content is no longer just communication — it is influence, identity, audience engagement, and business growth.
+        </p>
+      </div>
+      <div class="about-right reveal">
+        <div class="about-card">
+          <div class="about-card-icon">🎯</div>
+          <h4>Our Vision</h4>
+          <p>Redefine the future of digital media by crafting powerful narratives and building influential brands across Pakistan and beyond.</p>
+        </div>
+        <div class="about-card">
+          <div class="about-card-icon">🚀</div>
+          <h4>Our Mission</h4>
+          <p>Craft creative, high-quality content that informs, inspires, and engages modern audiences while empowering brands with strategic digital communication.</p>
+        </div>
+        <div class="about-card">
+          <div class="about-card-icon">🧠</div>
+          <h4>Industry Leadership</h4>
+          <p>Decades of expertise in broadcast, production, journalism, branding, and marketing — at the helm of every project.</p>
+        </div>
+        <div class="about-card">
+          <div class="about-card-icon">📱</div>
+          <h4>Digital-First</h4>
+          <p>We understand modern audience behavior and platform algorithms, creating optimized content for maximum reach and engagement.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVICES -->
+  <section id="services">
+    <div class="services-header reveal">
+      <div>
+        <p class="section-eyebrow">What We Do</p>
+        <h2 class="section-title">End-to-end media<br>and digital services.</h2>
+      </div>
+      <a href="#contact" class="btn-ghost">Request a Proposal</a>
+    </div>
+    <div class="services-grid reveal">
+      <div class="service-card">
+        <p class="service-num">01</p>
+        <h3>Digital Content Production</h3>
+        <ul class="service-list">
+          <li>Documentary Production</li>
+          <li>Podcast Production</li>
+          <li>Studio & Talk Shows</li>
+          <li>Explainer Videos</li>
+          <li>Digital Commercials</li>
+          <li>Social Media Reels</li>
+          <li>AI-assisted Visuals</li>
+          <li>Motion Graphics</li>
+          <li>Script & Creative Direction</li>
+        </ul>
+      </div>
+      <div class="service-card">
+        <p class="service-num">02</p>
+        <h3>Digital Media Management</h3>
+        <ul class="service-list">
+          <li>Social Media Management</li>
+          <li>Digital Branding</li>
+          <li>Platform Strategy</li>
+          <li>Content Scheduling</li>
+          <li>Audience Growth</li>
+          <li>Community Management</li>
+          <li>Reputation Management</li>
+          <li>YouTube Management</li>
+          <li>Performance Analytics</li>
+        </ul>
+      </div>
+      <div class="service-card">
+        <p class="service-num">03</p>
+        <h3>Paid Advertising & Campaigns</h3>
+        <ul class="service-list">
+          <li>Facebook & Instagram Ads</li>
+          <li>Google Ads</li>
+          <li>YouTube Advertising</li>
+          <li>Brand Awareness</li>
+          <li>Lead Generation</li>
+          <li>Political Campaigns</li>
+          <li>Audience Targeting</li>
+          <li>Retargeting</li>
+          <li>Campaign Reporting</li>
+        </ul>
+      </div>
+      <div class="service-card">
+        <p class="service-num">04</p>
+        <h3>Corporate & Commercial Media</h3>
+        <ul class="service-list">
+          <li>Corporate Profile Videos</li>
+          <li>Brand Films</li>
+          <li>Product Shoots</li>
+          <li>Promotional Campaigns</li>
+          <li>PR & Image Building</li>
+          <li>Event Media Coverage</li>
+          <li>Media Consultancy</li>
+          <li>Strategic Communication</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTENT CATEGORIES -->
+  <section id="content">
+    <div class="reveal">
+      <p class="section-eyebrow">Content We Create</p>
+      <h2 class="section-title">Original content for every<br>audience and platform.</h2>
+      <p class="section-body">
+        From sports and documentaries to kids' educational content and corporate campaigns — STARVIX produces content that resonates, informs, and drives engagement.
+      </p>
+    </div>
+    <div class="content-grid reveal">
+      <div class="content-pill"><span class="pill-icon">🏆</span>Sports</div>
+      <div class="content-pill"><span class="pill-icon">📜</span>History & Documentaries</div>
+      <div class="content-pill"><span class="pill-icon">💊</span>Health & Awareness</div>
+      <div class="content-pill"><span class="pill-icon">🧒</span>Kids & Educational</div>
+      <div class="content-pill"><span class="pill-icon">📡</span>Infotainment</div>
+      <div class="content-pill"><span class="pill-icon">🌍</span>Social Issues & Public Interest</div>
+      <div class="content-pill"><span class="pill-icon">🏢</span>Corporate & Brand</div>
+      <div class="content-pill"><span class="pill-icon">🌟</span>Lifestyle & Human Interest</div>
+    </div>
+  </section>
+
+  <!-- WHY STARVIX -->
+  <section id="why">
+    <div class="reveal">
+      <p class="section-eyebrow">Why STARVIX</p>
+      <h2 class="section-title">Built differently. Built to perform.</h2>
+    </div>
+    <div class="why-grid">
+      <div class="why-card reveal">
+        <h4>Industry Leadership</h4>
+        <p>Led by highly experienced professionals with decades of expertise in broadcast, production, journalism, branding, and marketing.</p>
+      </div>
+      <div class="why-card reveal">
+        <h4>Creative + Strategic</h4>
+        <p>We combine creativity with communication strategy to produce content that not only looks impressive but delivers measurable impact.</p>
+      </div>
+      <div class="why-card reveal">
+        <h4>Digital-First Mindset</h4>
+        <p>We understand modern audience behavior and platform algorithms, ensuring content is optimized for maximum engagement and reach.</p>
+      </div>
+      <div class="why-card reveal">
+        <h4>Modern Production</h4>
+        <p>From studio productions to AI-assisted visual storytelling, STARVIX uses cutting-edge technology to deliver high-quality content efficiently.</p>
+      </div>
+      <div class="why-card reveal">
+        <h4>Client-Centric Execution</h4>
+        <p>Every client, campaign, and project is approached with customized planning, professionalism, and an uncompromising commitment to quality.</p>
+      </div>
+      <div class="why-card reveal">
+        <h4>Full-Spectrum Coverage</h4>
+        <p>From ideation to analytics — content creation, brand management, paid campaigns, and corporate media, all under one roof.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTORS -->
+  <section id="sectors">
+    <div class="reveal">
+      <p class="section-eyebrow">Sectors We Serve</p>
+      <h2 class="section-title">Across industries,<br>across Pakistan.</h2>
+      <p class="section-body">We deliver tailored media solutions for organizations of all types.</p>
+    </div>
+    <div class="sectors-wrap reveal">
+      <span class="sector-tag">Real Estate & Housing Societies</span>
+      <span class="sector-tag">Educational Institutions</span>
+      <span class="sector-tag">Healthcare</span>
+      <span class="sector-tag">Retail & Consumer Brands</span>
+      <span class="sector-tag">Restaurants & Hospitality</span>
+      <span class="sector-tag">NGOs & Social Organizations</span>
+      <span class="sector-tag">Public Figures & Influencers</span>
+      <span class="sector-tag">Government & Semi-Government</span>
+      <span class="sector-tag">Corporate Organizations</span>
+    </div>
+  </section>
+
+  <!-- FUTURE -->
+  <section id="future">
+    <p class="section-eyebrow reveal">What's Next</p>
+    <h2 class="section-title reveal">Expanding the<br>boundaries of media.</h2>
+    <div class="future-grid reveal">
+      <div class="future-item">🌐 Digital Broadcasting Networks</div>
+      <div class="future-item">📺 OTT & Streaming Content</div>
+      <div class="future-item">🗣️ Regional Language Productions</div>
+      <div class="future-item">🤝 International Collaborations</div>
+      <div class="future-item">🤖 AI-driven Media Solutions</div>
+      <div class="future-item">📰 Digital News & Current Affairs</div>
+    </div>
+    <a href="#contact" class="btn-primary reveal">Partner With Us</a>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact">
+    <div class="contact-grid">
+      <div class="reveal">
+        <p class="section-eyebrow">Get in Touch</p>
+        <h2 class="section-title">Let's create<br>something impactful.</h2>
+        <p class="section-body">Whether you're a brand, business, or organization — STARVIX is ready to power your digital presence.</p>
+        <div class="contact-detail">
+          <div class="contact-item">
+            <div class="contact-icon">📞</div>
+            <div class="contact-item-body">
+              <label>Phone</label>
+              <a href="tel:03052338000">0305 233 8000</a>
+            </div>
+          </div>
+          <div class="contact-item">
+            <div class="contact-icon">✉️</div>
+            <div class="contact-item-body">
+              <label>Email</label>
+              <a href="mailto:info@starvix.pk">info@starvix.pk</a>
+            </div>
+          </div>
+          <div class="contact-item">
+            <div class="contact-icon">🌐</div>
+            <div class="contact-item-body">
+              <label>Website</label>
+              <a href="https://www.starvix.pk" target="_blank">www.starvix.pk</a>
+            </div>
+          </div>
+          <div class="contact-item">
+            <div class="contact-icon">📍</div>
+            <div class="contact-item-body">
+              <label>Office</label>
+              <p>Plot No. 237-C, Block Commercial, Etihad Town Phase 1, Off Raiwind Road, Lahore</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="reveal">
+        <div class="contact-form">
+          <div class="form-row">
+            <input type="text" placeholder="Your Name"/>
+            <input type="text" placeholder="Company / Brand"/>
+          </div>
+          <input type="email" placeholder="Email Address"/>
+          <input type="text" placeholder="What service are you looking for?"/>
+          <textarea placeholder="Tell us about your project or campaign..."></textarea>
+          <button class="btn-primary" onclick="alert('Message sent! We will get back to you shortly.')">Send Message</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-logo">
+      <img src="starvix-logo.png" alt="STARVIX" class="logo-img footer-logo-img"/>
+    </div>
+    <p class="footer-tagline">Where Content Meets Impact</p>
+    <p class="footer-copy">© 2025 STARVIX. Digital Media | Creative Production | Brand Communication</p>
+  </footer>
+
+  <script>
+    // Scroll reveal
+    const reveals = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((e, i) => {
+        if (e.isIntersecting) {
+          setTimeout(() => e.target.classList.add('visible'), i * 80);
+          observer.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.12 });
+    reveals.forEach(el => observer.observe(el));
+  </script>
+</body>
+</html>
